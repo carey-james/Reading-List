@@ -5,6 +5,7 @@ library(broom)
 library(dplyr)
 library(sf)
 library(maps)
+library(devtools)
 
 # Load Data
 books_2022 <- read.table('../../2022/books.csv',
@@ -59,7 +60,25 @@ map_plotter <- function(bk,mp){
 
 }
 
+# Tufte Plotter
+tufte_plotter <- function(bk){
+	# Load Data
+	source_url("https://raw.githubusercontent.com/sjmurdoch/fancyaxis/master/fancyaxis.R")
+	bk$DATE <- as.Date(bk$Date.Finished,format = "%m/%d/%y")
+	x <- bk$DATE
+	y <- bk$Pages
+	ggplot(x, y, main="", axes=FALSE, pch=16, cex=0.8,
+    	xlab="Date", ylab="Pages", 
+    	xlim=c(min(x)-10, max(x)), ylim=c(min(y)/1.5, max(y)))
+	axis(1, tick=F)
+	axis(2, tick=F, las=2)
+	axisstripchart(faithful$waiting, 1)
+	axisstripchart(faithful$eruptions, 2)
+}
+
+
 # Create Graphics
 #gender_plotter(books_2022,'2022')
 #gender_plotter(books_2023,'2023')
-map_plotter(books_2022,world_map)
+#map_plotter(books_2022,world_map)
+tufte_plotter(books_2022)

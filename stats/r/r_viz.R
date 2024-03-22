@@ -16,8 +16,22 @@ books_2023 <- read.table('../../2023/books.csv',
 	sep='|',
 	header=TRUE,
 	quote='')
+books_2024 <- read.table('../../2024/books.csv',
+	sep='|',
+	header=TRUE,
+	quote='')
 
-books <- rbind(books_2022, books_2023)
+books <- rbind(books_2022, books_2023, books_2024)
+books$Date.Finished <- as.Date(books$Date.Finished , format = "%m/%d/%Y")
+books$Year.Finished <- format(books$Date.Finished , format = "%Y")
+
+# Testing Graphing Data
+s <- ggplot(books, aes(x = Year.Finished, fill = Gender)) + geom_bar() + coord_flip() + theme_void()
+
+
+
+
+
 
 # Load Geographic data
 world_map <- read_sf('TM_WORLD_BORDERS_SIMPL-0.3.shp')

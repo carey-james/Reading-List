@@ -26,7 +26,9 @@ books$Date.Finished <- as.Date(books$Date.Finished , format = "%m/%d/%Y")
 books$Year.Finished <- format(books$Date.Finished , format = "%Y")
 
 # Testing Graphing Data
-s <- ggplot(books, aes(x = Year.Finished, fill = Gender)) + geom_bar() + coord_flip() + theme_void()
+gender_graph <- ggplot(books, aes(x = Year.Finished, fill = Gender)) + geom_bar() + coord_flip() + theme_minimal()
+
+genre_graph <- ggplot(books, aes(x = Category, fill = Genre)) + geom_bar() + facet_grid(Year.Finished~.) + coord_flip() + theme_minimal() 
 
 
 
